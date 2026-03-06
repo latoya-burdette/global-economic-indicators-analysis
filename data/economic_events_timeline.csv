@@ -1,0 +1,14 @@
+year,event_name,event_type,impact_level,description
+2005,China WTO Integration Acceleration,Trade,Medium,China's deepening WTO integration drove rapid export growth and global supply chain shifts.
+2008,Global Financial Crisis,Economic,High,Major worldwide economic downturn began.
+2010,European Sovereign Debt Crisis,Economic,High,Crisis in the eurozone.
+2011,Arab Spring Economic Disruptions,Geopolitical,Medium,Political upheavals across MENA region disrupted oil production and regional economies.
+2014,Oil Price Collapse,Commodity,High,"Crude oil prices fell from over $100 to below $50 per barrel, impacting oil-exporting economies."
+2015,Chinese Stock Market Crash,Financial,Medium,Major sell-off in Chinese equities causing global market volatility.
+2016,Brexit Referendum,Geopolitical,Medium,"UK voted to leave the EU, causing currency depreciation and trade uncertainty."
+2018,US-China Trade War Escalation,Trade,High,Escalating tariffs between US and China disrupted global trade flows.
+2020,COVID-19 Pandemic,Economic,High,Global pandemic causing widespread economic disruption.
+2021,Global Supply Chain Crisis,Economic,High,Post-pandemic supply chain bottlenecks caused shortages and price increases worldwide.
+2022,Russia-Ukraine Conflict,Economic,High,War impacting global energy and food markets.
+2023,Global Inflation Surge,Economic,High,High inflation rates across many major economies.
+2024,Global Monetary Policy Pivot,Economic,Medium,Major central banks began cutting interest rates after prolonged tightening cycle.
