@@ -12,20 +12,13 @@ knitr::opts_chunk$set(
   fig.width = 10,
   fig.height = 5
 )
-```
-## Overview
 
-This report looks at global economic indicators from 2005–2025, including GDP, GDP growth, inflation, and unemployment. Major economic events are included to help explain changes in these trends over time.
-
-## Libraries
-
-```{r}
 library(tidyverse)
 library(scales)
 library(patchwork)
 
 theme_set(
-  theme_minimal(base_size = 13) +
+  theme_light(base_size = 13) +
     theme(
       plot.title = element_text(face = "bold", size = 16),
       plot.subtitle = element_text(size = 12),
@@ -35,7 +28,10 @@ theme_set(
     )
 )
 ```
-## Data Loading
+
+## Overview
+
+This report looks at global economic indicators from 2005–2025, including GDP, GDP growth, inflation, and unemployment. Major economic events are included to help explain changes in these trends over time.
 
 ```{r}
 world <- read_csv("data/global_economy_world_aggregate.csv", show_col_types = FALSE) %>%
@@ -47,22 +43,18 @@ world <- read_csv("data/global_economy_world_aggregate.csv", show_col_types = FA
 events <- read_csv("data/economic_events_timeline.csv", show_col_types = FALSE) %>%
   mutate(year = as.integer(year))
 
-glimpse(world)
-glimpse(events)
-
 ```
 
 ## Global GDP (USD)
 
 ```{r}
-
 ggplot(world, aes(x = year, y = global_gdp_usd)) +
-  geom_line(linewidth = 1) +
+  geom_line(linewidth = 1.2, color = "#2C7FB8") +
   scale_x_continuous(breaks = seq(min(world$year), max(world$year), by = 5)) +
   scale_y_continuous(labels = label_number(scale_cut = cut_short_scale())) +
   labs(
     title = "Global GDP Expansion (2005–2025)",
-    subtitle = "Long-run upward trajectory with cyclical interruptions",
+    subtitle = "Long-term upward trend with periods of disruption",
     x = "Year",
     y = "Global GDP (USD)"
   )
@@ -73,50 +65,55 @@ Global GDP generally trends upward over time, although there are clear slowdowns
 ## Global GDP Growth (%) with Event Markers
 
 ```{r}
-
 ggplot(world, aes(x = year, y = global_gdp_growth_pct)) +
-  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_line(linewidth = 1.2, color = "#D95F02") +
   geom_vline(data = events, aes(xintercept = year), linetype = "dashed", alpha = 0.4) +
-  labs(title = "Global GDP Growth (%)", x = "Year", y = "Growth (%)") +
-  theme_minimal()
+  labs(
+    title = "Global GDP Growth (%)",
+    x = "Year",
+    y = "Growth (%)"
+  )
 ```
 Large economic events often correspond with changes in the direction or pace of global growth.
 
 ## Global Inflation (%)
 
 ```{r}
-
 ggplot(world, aes(x = year, y = global_inflation_pct)) +
-  geom_line(linewidth = 1) +
+  geom_line(linewidth = 1.2, color = "#1B9E77")+
+  scale_x_continuous(breaks = seq(min(world$year), max(world$year), by = 5)) +
   labs(
     title = "Global Inflation (%)",
     x = "Year",
     y = "Inflation (%)"
   )
 ```
+
 ## Global Unemployment (%)
 
 ```{r}
-
 ggplot(world, aes(x = year, y = global_unemployment_pct)) +
-  geom_line(linewidth = 1) +
+  geom_line(linewidth = 1.2, color = "#7570B3") +
+  scale_x_continuous(breaks = seq(min(world$year), max(world$year), by = 5)) +
   labs(
     title = "Global Unemployment (%)",
     x = "Year",
     y = "Unemployment (%)"
   )
 ```
+
 ## GDP Per Capita
 
 ```{r}
-
 ggplot(world, aes(x = year, y = global_gdp_per_capita)) +
-  geom_line(linewidth = 1) +
+  geom_line(linewidth = 1.2, color = "#E7298A") +
   geom_smooth(method = "loess", se = FALSE, linetype = "dashed") +
+  scale_x_continuous(breaks = seq(min(world$year), max(world$year), by = 5)) +
   scale_y_continuous(labels = dollar) +
   labs(
     title = "Global GDP Per Capita",
-    subtitle = "Dashed line = smoothed trend",
+    subtitle = "The dashed line shows the overall long-term trend",
     x = "Year",
     y = "USD"
   )
@@ -126,15 +123,19 @@ The dashed line highlights the overall long-term trend.
 ## Summary Statistics
 
 ```{r}
-world %>%
+summary_stats <- world %>%
   summarise(
     avg_growth = mean(global_gdp_growth_pct, na.rm = TRUE),
     sd_growth = sd(global_gdp_growth_pct, na.rm = TRUE),
     avg_inflation = mean(global_inflation_pct, na.rm = TRUE),
     avg_unemployment = mean(global_unemployment_pct, na.rm = TRUE)
   )
+
+knitr::kable(summary_stats, digits = 2)
 ```
 
 ## Conclusion
 
  Global economic trends from 2005–2025 show steady long-term growth with periods of volatility. Major economic disruptions are reflected in changes to GDP growth, inflation, and unemployment patterns.
+ 
+ 
